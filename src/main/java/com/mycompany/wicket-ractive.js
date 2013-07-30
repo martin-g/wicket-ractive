@@ -25,4 +25,14 @@
 			}
 		}
 	};
+
+	$(document).on("unload", function() {
+		var ractive;
+
+		for (ractive in Wicket.Ractive) {
+			if (ractive.hasOwnProperty('teardown')) {
+				ractive.teardown();
+			}
+		}
+	});
 })();
