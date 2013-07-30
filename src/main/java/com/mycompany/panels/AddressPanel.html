@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:wicket>
+<body>
+
+    <wicket:panel>
+
+        <address>
+            <strong>{{address.companyName}}</strong><br>
+            {{address.number}} {{address.street}}, {{address.apartment}}<br>
+            {{address.city}}, {{address.postcode}}<br>
+            <abbr title="Phone">P:</abbr> {{address.phone}}
+        </address>
+
+        <div><a wicket:id="link">Update city (from AddressPanel)</a></div>
+
+    </wicket:panel>
+</body>
+</html>

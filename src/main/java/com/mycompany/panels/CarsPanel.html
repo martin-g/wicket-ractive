@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:wicket>
+<body>
+    <wicket:panel>
+        My cars:
+        <ul>
+        {{#cars}}
+            <li>{{.}}</li>
+        {{/cars}}
+        </ul>
+    </wicket:panel>
+</body>
+</html>
