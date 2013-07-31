@@ -8,14 +8,14 @@ import org.apache.wicket.ajax.AjaxRequestHandler;
 /**
  *
  */
-public class RactiveRequestTarget extends AjaxRequestHandler
+public class RactiveRequestHandler extends AjaxRequestHandler
 {
 	/**
 	 * Constructor
 	 *
 	 * @param page the currently active page
 	 */
-	public RactiveRequestTarget(Page page)
+	public RactiveRequestHandler(Page page)
 	{
 		super(page);
 	}
