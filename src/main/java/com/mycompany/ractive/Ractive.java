@@ -7,27 +7,16 @@ import com.mycompany.json.Json;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.WicketRuntimeException;
-import org.apache.wicket.ajax.AjaxRequestHandler;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONObject;
 
 /**
  *
  */
-public class RactiveRequestHandler extends AjaxRequestHandler
+public class Ractive
 {
-	/**
-	 * Constructor
-	 *
-	 * @param page the currently active page
-	 */
-	public RactiveRequestHandler(Page page)
-	{
-		super(page);
-	}
-
-	@Override
-	public void add(Component... components)
+	public static void ractive(AjaxRequestTarget target, Component... components)
 	{
 		for (Component component : components)
 		{
@@ -52,21 +41,22 @@ public class RactiveRequestHandler extends AjaxRequestHandler
 						throw new WicketRuntimeException(e);
 					}
 
-					appendJavaScript(String.format("Wicket.Ractive['%s'].set('w%s', %s)", cursor.getMarkupId(), childPath, childJson));
+					target.appendJavaScript(String.format("Wicket.Ractive['%s'].set('w%s', %s)", cursor.getMarkupId(), childPath, childJson));
 					processed = true;
 					break;
 				}
 				paths.addFirst(cursor.getId());
 				cursor = cursor.getParent();
 			}
+
 			if (processed == false)
 			{
-				super.add(component);
+				target.add(component);
 			}
 		}
 	}
 
-	private CharSequence getChildPath(Deque<String> paths)
+	private static CharSequence getChildPath(Deque<String> paths)
 	{
 		StringBuilder result = new StringBuilder();
 		if (paths.isEmpty() == false)
@@ -80,7 +70,7 @@ public class RactiveRequestHandler extends AjaxRequestHandler
 		return result;
 	}
 
-	private JSONObject getChildJson(JSONObject json, Deque<String> paths) throws JSONException
+	private static JSONObject getChildJson(JSONObject json, Deque<String> paths) throws JSONException
 	{
 		if (paths.isEmpty())
 		{

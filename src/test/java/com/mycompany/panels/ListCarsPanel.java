@@ -7,9 +7,9 @@ import org.apache.wicket.markup.html.panel.GenericPanel;
 /**
  *
  */
-public class CarsPanel extends GenericPanel<List<String>>
+public class ListCarsPanel extends GenericPanel<List<String>>
 {
-	public CarsPanel(String id)
+	public ListCarsPanel(String id)
 	{
 		super(id);
 	}

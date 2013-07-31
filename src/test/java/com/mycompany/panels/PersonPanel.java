@@ -33,6 +33,6 @@ public class PersonPanel extends GenericPanel<Person>
 
 		add(new AddressPanel("address"));
 
-		add(new CarsPanel("cars"));
+		add(new ListCarsPanel("cars"));
 	}
 }

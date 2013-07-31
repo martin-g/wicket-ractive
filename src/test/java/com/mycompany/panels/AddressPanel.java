@@ -1,5 +1,7 @@
 package com.mycompany.panels;
 
+import static com.mycompany.ractive.Ractive.ractive;
+
 import com.mycompany.model.Address;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -21,7 +23,7 @@ public class AddressPanel extends GenericPanel<Address>
 			{
 				Address address = AddressPanel.this.getModelObject();
 				address.city = address.city + " Updated";
-				target.add(AddressPanel.this);
+				ractive(target, AddressPanel.this);
 			}
 		});
 	}

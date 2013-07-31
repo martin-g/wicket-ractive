@@ -4,6 +4,7 @@ import com.mycompany.json.Json;
 import com.mycompany.json.JsonObject;
 import org.apache.wicket.Component;
 import org.apache.wicket.WicketRuntimeException;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.behavior.Behavior;
@@ -42,7 +43,16 @@ public class RactiveBehavior extends Behavior
 			throw new WicketRuntimeException(e);
 		}
 		String javascript = String.format("Wicket.Ractive.register('%s', %s);", component.getMarkupId(), config);
-		response.render(new PriorityHeaderItem(OnDomReadyHeaderItem.forScript(javascript)));
+
+		AjaxRequestTarget target = component.getRequestCycle().find(AjaxRequestTarget.class);
+		if (target != null)
+		{
+			target.appendJavaScript(javascript);
+		}
+		else
+		{
+			response.render(new PriorityHeaderItem(OnDomReadyHeaderItem.forScript(javascript)));
+		}
 	}
 
 	protected JSONObject createData(Component component) throws JSONException

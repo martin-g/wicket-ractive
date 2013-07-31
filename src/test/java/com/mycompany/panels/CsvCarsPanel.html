@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:wicket>
+<body>
+    <wicket:panel>
+        My cars:
+        {{#(sort (w.cars) )}}
+            {{.}},
+        {{/()}}
+    </wicket:panel>
+</body>
+</html>
