@@ -10,18 +10,12 @@
 	}
 
 	Wicket.Ractive = {
-		register: function(markupId, data) {
+		register: function(markupId, config) {
 			if (Wicket.Ractive[markupId]) {
-				Wicket.Ractive[markupId].set(data);
+				Wicket.Ractive[markupId].set(config.data);
 			}
 			else {
-				Wicket.Ractive[markupId] = new Ractive({
-					debug: true,
-
-					el: markupId,
-					template: '#' + markupId,
-					data: data
-				});
+				Wicket.Ractive[markupId] = new Ractive(config);
 			}
 		}
 	};

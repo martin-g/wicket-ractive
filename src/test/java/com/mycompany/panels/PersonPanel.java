@@ -2,6 +2,7 @@ package com.mycompany.panels;
 
 import com.mycompany.ractive.RactiveBehavior;
 import com.mycompany.model.Person;
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.ajax.json.JsonFunction;
@@ -20,9 +21,9 @@ public class PersonPanel extends GenericPanel<Person>
 		add(new RactiveBehavior()
 		{
 			@Override
-			protected JSONObject createData() throws JSONException
+			protected JSONObject createData(Component component) throws JSONException
 			{
-				JSONObject data = super.createData();
+				JSONObject data = super.createData(component);
 
 				data.put("sort", new JsonFunction("function(cars) {return cars.sort();}"));
 

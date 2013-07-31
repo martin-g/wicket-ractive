@@ -33,23 +33,34 @@ public class RactiveBehavior extends Behavior
 		response.render(JavaScriptHeaderItem.forReference(new JQueryPluginResourceReference(RactiveBehavior.class, "res/js/Ractive.js")));
 		response.render(JavaScriptHeaderItem.forReference(new JQueryPluginResourceReference(RactiveBehavior.class, "res/js/wicket-ractive.js")));
 
-		JSONObject data;
-		String markupId = component.getMarkupId();
-		JsonObject json = Json.toJsonObject(component);
+		JSONObject config;
 		try
 		{
-			data = createData();
-			data.put("w", json);
+			config = createConfig(component);
 		} catch (JSONException e)
 		{
 			throw new WicketRuntimeException(e);
 		}
-		String javascript = String.format("Wicket.Ractive.register('%s', %s);", markupId, data);
+		String javascript = String.format("Wicket.Ractive.register('%s', %s);", component.getMarkupId(), config);
 		response.render(new PriorityHeaderItem(OnDomReadyHeaderItem.forScript(javascript)));
 	}
 
-	protected JSONObject createData() throws JSONException
+	protected JSONObject createData(Component component) throws JSONException
 	{
-		return new JSONObject();
+		JSONObject data = new JSONObject();
+		JsonObject json = Json.toJsonObject(component);
+		data.put("w", json);
+		return data;
+	}
+
+	protected JSONObject createConfig(Component component) throws JSONException
+	{
+		String markupId = component.getMarkupId();
+		JSONObject config = new JSONObject();
+		config.put("el", markupId);
+		config.put("template", "#" + markupId);
+		config.put("data", createData(component));
+
+		return config;
 	}
 }

@@ -40,6 +40,7 @@ public class RactiveRequestHandler extends AjaxRequestHandler
 				Object modelObject = cursor.getDefaultModelObject();
 				if (modelObject instanceof RactiveObject)
 				{
+					// TODO optimize => do not iterate 'paths' twice (in getChildPath and getChildJson(
 					CharSequence childPath = getChildPath(paths);
 					JSONObject json = Json.toJsonObject(cursor);
 					JSONObject childJson;
