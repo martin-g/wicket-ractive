@@ -4,9 +4,9 @@
     <wicket:panel>
         My cars:
         <ul>
-        {{#w.cars}}
+        {{#(sort (w.cars) )}}
             <li>{{.}}</li>
-        {{/w.cars}}
+        {{/()}}
         </ul>
     </wicket:panel>
 </body>

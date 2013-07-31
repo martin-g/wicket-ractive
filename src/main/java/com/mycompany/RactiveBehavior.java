@@ -2,6 +2,7 @@ package com.mycompany;
 
 import com.mycompany.json.JsonObject;
 import org.apache.wicket.Component;
+import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.behavior.Behavior;
@@ -31,21 +32,23 @@ public class RactiveBehavior extends Behavior
 		response.render(JavaScriptHeaderItem.forReference(new JQueryPluginResourceReference(RactiveBehavior.class, "Ractive.js")));
 		response.render(JavaScriptHeaderItem.forReference(new JQueryPluginResourceReference(RactiveBehavior.class, "wicket-ractive.js")));
 
-		JSONObject data = createData();
+		JSONObject data;
 		String markupId = component.getMarkupId();
 		JsonObject json = Json.toJsonObject(component);
 		try
 		{
+			data = createData();
 			data.put("w", json);
 		} catch (JSONException e)
 		{
-			e.printStackTrace();
+			throw new WicketRuntimeException(e);
 		}
 		String javascript = String.format("Wicket.Ractive.register('%s', %s);", markupId, data);
 		response.render(new PriorityHeaderItem(OnDomReadyHeaderItem.forScript(javascript)));
 	}
 
-	protected JSONObject createData() {
+	protected JSONObject createData() throws JSONException
+	{
 		return new JSONObject();
 	}
 }
