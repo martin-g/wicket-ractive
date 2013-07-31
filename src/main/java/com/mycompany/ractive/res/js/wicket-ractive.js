@@ -12,11 +12,10 @@
 	Wicket.Ractive = {
 		register: function(markupId, config) {
 			if (Wicket.Ractive[markupId]) {
-				Wicket.Ractive[markupId].set(config.data);
+				Wicket.Ractive[markupId].teardown();
 			}
-			else {
-				Wicket.Ractive[markupId] = new Ractive(config);
-			}
+
+			Wicket.Ractive[markupId] = new Ractive(config);
 		}
 	};
 
