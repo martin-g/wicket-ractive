@@ -1,6 +1,6 @@
 package com.mycompany;
 
-import com.google.gson.Gson;
+import com.mycompany.json.JsonObject;
 import org.apache.wicket.Component;
 
 /**
@@ -8,10 +8,13 @@ import org.apache.wicket.Component;
  */
 public class Json
 {
-	public static String toJson(Component component) {
-		Object modelObject = component.getDefaultModelObject();
-		Gson gson = new Gson();
-		String json = gson.toJson(modelObject);
-		return json;
+	public static String stringify(Component component) {
+		return toJsonObject(component).toString();
 	}
+
+	public static JsonObject toJsonObject(Component component) {
+		Object modelObject = component.getDefaultModelObject();
+		return new JsonObject(modelObject);
+	}
+
 }

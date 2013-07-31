@@ -31,9 +31,9 @@ public class JsonRequestTarget extends AjaxRequestHandler
 				Object modelObject = cursor.getDefaultModelObject();
 				if (modelObject instanceof RactiveObject) {
 
-					String json = Json.toJson(cursor);
+					String json = Json.stringify(cursor);
 
-					appendJavaScript(String.format("Wicket.Ractive['%s'].set(%s)", cursor.getMarkupId(), json));
+					appendJavaScript(String.format("Wicket.Ractive['%s'].set('w', %s)", cursor.getMarkupId(), json));
 					processed = true;
 					break;
 				}

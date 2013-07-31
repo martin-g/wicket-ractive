@@ -1,6 +1,9 @@
 package com.mycompany;
 
+import com.mycompany.json.JsonObject;
 import org.apache.wicket.Component;
+import org.apache.wicket.ajax.json.JSONException;
+import org.apache.wicket.ajax.json.JSONObject;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -28,9 +31,21 @@ public class RactiveBehavior extends Behavior
 		response.render(JavaScriptHeaderItem.forReference(new JQueryPluginResourceReference(RactiveBehavior.class, "Ractive.js")));
 		response.render(JavaScriptHeaderItem.forReference(new JQueryPluginResourceReference(RactiveBehavior.class, "wicket-ractive.js")));
 
+		JSONObject data = createData();
 		String markupId = component.getMarkupId();
-		String json = Json.toJson(component);
-		String javascript = String.format("Wicket.Ractive.register('%s', %s);", markupId, json);
+		JsonObject json = Json.toJsonObject(component);
+		try
+		{
+			data.put("w", json);
+		} catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
+		String javascript = String.format("Wicket.Ractive.register('%s', %s);", markupId, data);
 		response.render(new PriorityHeaderItem(OnDomReadyHeaderItem.forScript(javascript)));
+	}
+
+	protected JSONObject createData() {
+		return new JSONObject();
 	}
 }
