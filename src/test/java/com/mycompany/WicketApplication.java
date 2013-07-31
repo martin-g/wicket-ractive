@@ -1,5 +1,6 @@
 package com.mycompany;
 
+import com.mycompany.ractive.RactiveRequestTarget;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebPage;
@@ -35,7 +36,7 @@ public class WicketApplication extends WebApplication
 			@Override
 			public AjaxRequestTarget get(Page page)
 			{
-				return new JsonRequestTarget(page);
+				return new RactiveRequestTarget(page);
 			}
 		});
 	}

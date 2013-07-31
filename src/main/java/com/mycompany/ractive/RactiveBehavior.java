@@ -1,5 +1,6 @@
-package com.mycompany;
+package com.mycompany.ractive;
 
+import com.mycompany.json.Json;
 import com.mycompany.json.JsonObject;
 import org.apache.wicket.Component;
 import org.apache.wicket.WicketRuntimeException;
@@ -29,8 +30,8 @@ public class RactiveBehavior extends Behavior
 	{
 		super.renderHead(component, response);
 
-		response.render(JavaScriptHeaderItem.forReference(new JQueryPluginResourceReference(RactiveBehavior.class, "Ractive.js")));
-		response.render(JavaScriptHeaderItem.forReference(new JQueryPluginResourceReference(RactiveBehavior.class, "wicket-ractive.js")));
+		response.render(JavaScriptHeaderItem.forReference(new JQueryPluginResourceReference(RactiveBehavior.class, "res/js/Ractive.js")));
+		response.render(JavaScriptHeaderItem.forReference(new JQueryPluginResourceReference(RactiveBehavior.class, "res/js/wicket-ractive.js")));
 
 		JSONObject data;
 		String markupId = component.getMarkupId();

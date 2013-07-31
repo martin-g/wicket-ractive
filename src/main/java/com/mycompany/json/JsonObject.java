@@ -1,18 +1,19 @@
 package com.mycompany.json;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
-import com.mycompany.model.Address;
-import com.mycompany.model.Person;
+import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONObject;
 
 /**
+ * An extension of JSON2 JSONObject that supports
+ * serializing a POJO to JSON by using reflection.
  *
+ * Note: The reflection is not cached! For production usage
+ * this should be improved!
  */
 public class JsonObject extends JSONObject
 {
@@ -23,7 +24,7 @@ public class JsonObject extends JSONObject
 			populate(object);
 		} catch (Exception e)
 		{
-			e.printStackTrace();
+			throw new WicketRuntimeException(e);
 		}
 	}
 
@@ -60,23 +61,5 @@ public class JsonObject extends JSONObject
 				Map.class.isAssignableFrom(type) ||
 				Collection.class.isAssignableFrom(type)
 		);
-	}
-
-	public static void main(String[] args)
-	{
-		Person person = new Person();
-		person.firstName = "Martin";
-		List<String> cars = new ArrayList<String>();
-		person.cars = cars;
-		cars.add("Volvo");
-
-		Address address = new Address();
-		person.address = address;
-		address.apartment = "app";
-		address.city = "grad";
-		address.number = 33;
-
-		JsonObject json = new JsonObject(person);
-		System.err.println(json);
 	}
 }

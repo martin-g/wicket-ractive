@@ -1,6 +1,6 @@
 package com.mycompany.panels;
 
-import com.mycompany.RactiveBehavior;
+import com.mycompany.ractive.RactiveBehavior;
 import com.mycompany.model.Person;
 import org.apache.wicket.ajax.json.JSONException;
 import org.apache.wicket.ajax.json.JSONObject;

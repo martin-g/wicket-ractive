@@ -1,4 +1,4 @@
-package com.mycompany;
+package com.mycompany.json;
 
 import com.mycompany.json.JsonObject;
 import org.apache.wicket.Component;

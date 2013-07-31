@@ -1,5 +1,6 @@
-package com.mycompany;
+package com.mycompany.ractive;
 
+import com.mycompany.json.Json;
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestHandler;
@@ -7,14 +8,14 @@ import org.apache.wicket.ajax.AjaxRequestHandler;
 /**
  *
  */
-public class JsonRequestTarget extends AjaxRequestHandler
+public class RactiveRequestTarget extends AjaxRequestHandler
 {
 	/**
 	 * Constructor
 	 *
 	 * @param page the currently active page
 	 */
-	public JsonRequestTarget(Page page)
+	public RactiveRequestTarget(Page page)
 	{
 		super(page);
 	}
