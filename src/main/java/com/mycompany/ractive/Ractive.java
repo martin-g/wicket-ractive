@@ -2,6 +2,7 @@ package com.mycompany.ractive;
 
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.Locale;
 
 import com.mycompany.json.Json;
 import org.apache.wicket.Component;
@@ -30,7 +31,7 @@ public class Ractive
 				if (modelObject instanceof RactiveObject)
 				{
 					// TODO optimize => do not iterate 'paths' twice (in getChildPath and getChildJson(
-					CharSequence childPath = getChildPath(paths);
+					CharSequence childPath = getChildPath(paths, modelObject);
 					JSONObject json = Json.toJsonObject(cursor);
 					JSONObject childJson;
 					try
@@ -41,7 +42,7 @@ public class Ractive
 						throw new WicketRuntimeException(e);
 					}
 
-					target.appendJavaScript(String.format("Wicket.Ractive['%s'].set('w%s', %s)", cursor.getMarkupId(), childPath, childJson));
+					target.appendJavaScript(String.format("Wicket.Ractive['%s'].set('%s', %s)", cursor.getMarkupId(), childPath, childJson));
 					processed = true;
 					break;
 				}
@@ -56,9 +57,13 @@ public class Ractive
 		}
 	}
 
-	private static CharSequence getChildPath(Deque<String> paths)
+	private static CharSequence getChildPath(Deque<String> paths, Object modelObject)
 	{
 		StringBuilder result = new StringBuilder();
+
+		String rootName = modelObject.getClass().getSimpleName().toLowerCase(Locale.ENGLISH);
+		result.append(rootName);
+
 		if (paths.isEmpty() == false)
 		{
 			for (String path : paths)

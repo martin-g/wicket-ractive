@@ -3,15 +3,19 @@
 <body>
     <wicket:panel>
 
+        {{#person}}
+
         <div wicket:id="address"></div>
 
         <address>
-            <strong>{{w.firstName}} {{w.lastName}}</strong><br>
-            <a href="mailto:{{w.email}}">{{w.email}}</a>
+            <strong>{{firstName}} {{lastName}}</strong><br>
+            <a href="mailto:{{email}}">{{email}}</a>
         </address>
 
         <br/><br/>
         <div wicket:id="cars"></div>
+
+        {{/person}}
     </wicket:panel>
 </body>
 </html>

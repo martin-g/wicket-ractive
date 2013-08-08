@@ -25,7 +25,7 @@ public class PersonPanel extends GenericPanel<Person>
 			{
 				JSONObject data = super.createData(component);
 
-				data.put("sort", new JsonFunction("function(cars) {return cars.sort();}"));
+				data.put("sort", new JsonFunction("function(cars) {return cars.slice().sort();}"));
 
 				return data;
 			}

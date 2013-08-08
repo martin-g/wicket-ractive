@@ -1,5 +1,7 @@
 package com.mycompany.ractive;
 
+import java.util.Locale;
+
 import com.mycompany.json.Json;
 import com.mycompany.json.JsonObject;
 import org.apache.wicket.Component;
@@ -59,7 +61,9 @@ public class RactiveBehavior extends Behavior
 	{
 		JSONObject data = new JSONObject();
 		JsonObject json = Json.toJsonObject(component);
-		data.put("w", json);
+		Object modelObject = component.getDefaultModelObject();
+		String rootName = modelObject.getClass().getSimpleName().toLowerCase(Locale.ENGLISH);
+		data.put(rootName, json);
 		return data;
 	}
 
